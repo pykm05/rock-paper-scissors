@@ -1,5 +1,9 @@
+/* Written by Aaron Pang, June 24th, 2024 */
+
+// Randomly generate a number to decide rock, paper, or scissors
 function getComputerChoice() {
   let val = Math.random();
+  // Divide random gen number into three equal parts to get random choice
   console.log(val);
   if (val >= 0.66) {
     return "rock";
@@ -10,11 +14,12 @@ function getComputerChoice() {
   return "scissors";
 }
 
+// Get user's choice
 function getHumanChoice() {
-  let choice = prompt("Rock, Paper, Scissors!");
-  return choice;
+  return prompt("Rock, Paper, Scissors!");
 }
 
+//Game loop
 function playGame() {
   let humanScore = 0;
   let computerScore = 0;
