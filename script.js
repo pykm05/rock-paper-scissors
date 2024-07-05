@@ -14,18 +14,12 @@ function getComputerChoice() {
   return "scissors";
 }
 
-// Get user's choice
-function getHumanChoice() {
-  return prompt("Rock, Paper, Scissors!");
-}
-
 //Game loop
 function playGame() {
   let humanScore = 0;
   let computerScore = 0;
 
   function playRound(humanSelection, computerSelection) {
-    humanSelection = humanSelection.toLowerCase();
     switch(humanSelection) {
       case "rock":
         if (computerSelection == "paper") {
@@ -72,14 +66,45 @@ function playGame() {
     }
   }
 
-  for (let i = 0; i < 5; i++) {
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
+  const body = document.querySelector("body");
+  const scoreContainer = document.createElement("div");
 
-    playRound(humanSelection, computerSelection);
-    console.log(humanScore);
-    console.log(computerScore);
+  let yourScore = document.createElement("div");
+  yourScore.textContent = "human score: " + humanScore;
+
+  let theirScore = document.createElement("div");
+  theirScore.textContent = "computer score: " + computerScore;
+
+  scoreContainer.appendChild(yourScore);
+  scoreContainer.appendChild(theirScore);
+  body.appendChild(scoreContainer);
+  
+  const updateScore = () => {
+    yourScore.textContent = "human score: " + humanScore;
+    theirScore.textContent = "computer score: " + computerScore;
+
+    if (humanScore == 5) alert("human wins!");
+    if (computerScore == 5) alert("computer wins!");
   }
+
+  const buttons = document.querySelectorAll("button");
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      switch(true) {
+        case button.classList == "rock":
+          playRound("rock", getComputerChoice());
+          break;
+        case button.classList == "paper":
+          playRound("paper", getComputerChoice());
+          break;
+        case button.classList == "scissors":
+          playRound("scissors", getComputerChoice());
+          break;
+        default:
+          break;
+      }
+      updateScore();
+    })});
 }
 
 playGame();
